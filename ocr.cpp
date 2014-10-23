@@ -150,7 +150,7 @@ Square::Square(int x, int y)
 	ycoor1=y*SCREENHEIGHT/GRIDHEIGHT;
 	xcoor2=(x+1)*SCREENWIDTH/GRIDWIDTH;
 	ycoor2=(y+1)*SCREENHEIGHT/GRIDHEIGHT;
-	selected=FALSE;
+	selected=false;
 }
 
 //location of the square on the screen, used for rendering
@@ -162,7 +162,7 @@ QRectF Square::boundingRect() const
 //called when the user selects the square
 void Square::click()
 {
-	selected=TRUE;
+	selected=true;
 	update();
 }
 
@@ -187,7 +187,7 @@ void Square::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 OCRView::OCRView(QGraphicsScene *scene, QWidget* parent):QGraphicsView(scene, parent)
 {
 	//the mouse is initially assumed to be unpressed
-	isPressed=FALSE;
+	isPressed=false;
 }
 
 //the mouse has been pressed or dragged
@@ -210,14 +210,14 @@ void OCRView::mouseMoveEvent(QMouseEvent *event)
 //if the user presses the mouse on a square, select it
 void OCRView::mousePressEvent(QMouseEvent *event)
 {
-	isPressed=TRUE;
+	isPressed=true;
 	squareClickEvent(event);
 }
 
 //the mouse is released, stop selecting squares
 void OCRView::mouseReleaseEvent(QMouseEvent *event)
 {
-	isPressed=FALSE;
+	isPressed=false;
 }
 
 //double click means that we're done drawing
