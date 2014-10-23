@@ -1,3 +1,5 @@
+QT += widgets
+
 HEADERS += ocr.h
 HEADERS += neural.h
 SOURCES += ocr.cpp

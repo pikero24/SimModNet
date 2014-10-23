@@ -1,10 +1,11 @@
 /*Defines some qt graphical objects
 Michael Black, 10/2014*/
 
-#include <QGraphicsItem>
 #include <QGraphicsView>
 #include <QTimer>
+#include <Qtwidgets>
 #include <QWidget>
+
 
 class QGraphicsScene;
 
