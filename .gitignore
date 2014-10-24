@@ -10,6 +10,7 @@
 *.o
 *.stash
 *.qmake.stash
+*.app/
 
 [Bb]alls.app/
 [Dd]ebug/
