@@ -1,9 +1,11 @@
 /*Defines some qt graphical objects
 Michael Black, 10/2014*/
-
+#include <QGraphicsItem>
 #include <QGraphicsView>
 #include <QTimer>
-#include <Qtwidgets>
+#if QT_VERSION >= 0x050000
+#include <QtWidgets>
+#endif
 #include <QWidget>
 
 
