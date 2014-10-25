@@ -3,7 +3,9 @@ Michael Black, 10/2014*/
 #include <QGraphicsItem>
 #include <QGraphicsView>
 #include <QTimer>
-//include <QtWidgets>
+#if QT_VERSION >= 0x050000
+#include <QtWidgets>
+#endif
 #include <QWidget>
 
 
