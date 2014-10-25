@@ -91,7 +91,6 @@ void train(){
 	datafile.close();
 
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
-<<<<<<< HEAD
 
 	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 	bool correct = false;
@@ -103,14 +102,14 @@ void train(){
 			if(sample_output[i] == 'H')
 			{
 				correct = neuron->train(sample_input[i],1);
-				cout << sample_output[i] << correct << endl;
+				//cout << sample_output[i] << correct << endl;
 				if (!correct)
 						break;
 			}
 			else
 			{
 				correct = neuron->train(sample_input[i],0);
-				cout << sample_output[i] << correct << endl;
+				//cout << sample_output[i] << correct << endl;
 				if (!correct)
 						break;
 			}
@@ -119,7 +118,7 @@ void train(){
 
 	for (int i = 0; i < linecount; ++i)
 	{
-		cout << "Prediction for " << sample_output[i] << "is " <<neuron->getPrediction(sample_input[i]) << endl;
+		cout << "Prediction for " << sample_output[i] << " is " << neuron->getPrediction(sample_input[i]) << endl;
 	}
 }
 
