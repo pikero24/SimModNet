@@ -91,7 +91,6 @@ void train(){
 	datafile.close();
 
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
-<<<<<<< HEAD
 
 	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 	bool correct = false;
@@ -100,7 +99,7 @@ void train(){
 	{
 		for (int i = 0; i < linecount; ++i)
 		{
-			if(sample_output[i] == 'H')
+			if(sample_output[i] == 'A')
 			{
 				correct = neuron->train(sample_input[i],1);
 				cout << sample_output[i] << correct << endl;
