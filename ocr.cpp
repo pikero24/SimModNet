@@ -1,13 +1,10 @@
 /*A character recognizer that uses neural nets
 
-TODO: YOUR NAME HERE, 10/2014
-
+TODO: JC and Alma Sanchez, 10/2014
 assignment and helper code by Michael Black, 10/2014
-
 TODO:  
 	YOUR CODE WILL GO IN FUNCTIONS test() AND train()
 	HERE STATE WHAT STEPS YOU ACCOMPLISHED
-
 usage:
 ocr sample X
 	pops up a window, user draws an example of an X, user doubleclicks and the X is saved for later
@@ -53,24 +50,23 @@ string operation,symbol;
 
 //called immediately on "ocr train"
 //reads the images in ocrdata.txt, builds a set of neural nets, trains them, and saves the weights to perceptron.txt
-void train()
-{
+void train(){
 	//read the images from file ocrdata.txt
 	ifstream datafile;	//file object
 	string line;		//lines will go here
 	datafile.open("ocrdata.txt");	//open the file
 	//stop the program if the file isn't found
-	if (!datafile.is_open())
-	{
+	if (!datafile.is_open()){
 		cout<<"Couldn't open ocrdata.txt"<<endl;
 		return;
 	}
+
 	int linecount=0;	//keep track of how many samples are in the file
 	//go through the file and just count the number of samples
-	while(getline(datafile,line))
-	{
+	while(getline(datafile,line)){
 		linecount++;
 	}
+
 	//close the file.  we'll reopen it in a moment.
 	datafile.close();
 
@@ -81,15 +77,13 @@ void train()
 	//reopen the file
 	datafile.open("ocrdata.txt");
 	//for each sample,
-	for(int i=0; i<linecount; i++)
-	{
+	for(int i=0; i<linecount; i++){
 		//read it from the file
 		getline(datafile,line);
 		//the first character is the output letter
 		sample_output[i]=line[0];
 		//then a space, then a 1 or 0 for each square on the screen
-		for (int j=0; j<GRIDWIDTH*GRIDHEIGHT; j++)
-		{
+		for (int j=0; j<GRIDWIDTH*GRIDHEIGHT; j++){
 			sample_input[i][j]=line[j+2]=='1'?1:0;
 		}
 	}
@@ -97,6 +91,7 @@ void train()
 	datafile.close();
 
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
+<<<<<<< HEAD
 
 	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 	bool correct = false;
@@ -128,18 +123,14 @@ void train()
 	}
 }
 
-
-
 //called on "ocr test", after the user draws and double-clicks the mouse
-void test()
-{
+void test(){
 
 //TODO: MAKE SOME NEURAL NETS, READ THE WEIGHTS FROM A FILE perceptron.txt, USE THE NEURAL NETS TO IDENTIFY THE LETTER
 }
 
 //read the contents of the grid and save them to the end of ocrdata.txt
-void saveSample()
-{
+void saveSample(){
 	ofstream datafile;
 	datafile.open("ocrdata.txt",ios::out|ios::app);
 	datafile << symbol << " ";
