@@ -1,6 +1,6 @@
 /*A character recognizer that uses neural nets
 
-TODO: JC and Alma Sanchez, 10/2014
+TODO: JC T... and Alma Sanchez, 10/2014
 assignment and helper code by Michael Black, 10/2014
 TODO:  
 	YOUR CODE WILL GO IN FUNCTIONS test() AND train()
