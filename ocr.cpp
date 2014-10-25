@@ -125,6 +125,7 @@ void train(){
 	outdatafile.open("perceptron.txt",ios::out|ios::app);
 	for (int i = 0; i < neuron->size+1; ++i)
 	{
+		//line 1 of output file is the output weights
 		outdatafile << neuron->outputweight[i] << " " ;
 	}
 	outdatafile << endl; //<< "~~~~~~~~~~~~~~~" << endl;
@@ -133,6 +134,7 @@ void train(){
 	{
 		for (int j = 0; j < neuron->size+1; ++j)
 		{
+			//line 2 of output file is hidden weights
 			outdatafile << neuron->hiddenweight[i][j] << " " ;
 		}
 	}
