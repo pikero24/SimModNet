@@ -99,7 +99,7 @@ void train(){
 	{
 		for (int i = 0; i < linecount; ++i)
 		{
-			if(sample_output[i] == 'A')
+			if(sample_output[i] == 'S')
 			{
 				correct = neuron->train(sample_input[i],1);
 				//cout << sample_output[i] << correct << endl;
@@ -120,6 +120,26 @@ void train(){
 	{
 		cout << "Prediction for " << sample_output[i] << " is " << neuron->getPrediction(sample_input[i]) << endl;
 	}
+
+	ofstream outdatafile;
+	outdatafile.open("perceptron.txt",ios::out|ios::app);
+	for (int i = 0; i < neuron->size+1; ++i)
+	{
+		outdatafile << neuron->outputweight[i] << " " ;
+	}
+	// outdatafile << endl << "~~~~~~~~~~~~~~~" << endl;
+	
+	for (int i = 0; i < neuron->size; ++i)
+	{
+		for (int j = 0; j < neuron->size+1; ++j)
+		{
+			outdatafile << neuron->hiddenweight[i][j] << " " ;
+		}
+	}
+
+	
+	outdatafile.close();
+	cout << "Wrote sample to perceptron.txt" << endl;
 }
 
 //called on "ocr test", after the user draws and double-clicks the mouse
