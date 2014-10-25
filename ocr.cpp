@@ -20,6 +20,7 @@ ocr test
 #include <string>
 #include <QtGui>
 #include <math.h>
+#include <sstream>
 //graphics defs here
 #include "ocr.h"
 //neural network is defined here.  assumes neural.cpp is in the same directory too.
@@ -145,8 +146,37 @@ void train(){
 
 //called on "ocr test", after the user draws and double-clicks the mouse
 void test(){
-//TODO: MAKE SOME NEURAL NETS, READ THE WEIGHTS FROM A FILE perceptron.txt, USE THE NEURAL NETS TO IDENTIFY THE LETTER
+	//TODO: MAKE SOME NEURAL NETS, READ THE WEIGHTS FROM A FILE perceptron.txt, USE THE NEURAL NETS TO IDENTIFY THE LETTER
+	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 
+	ifstream datafile;	//file object
+	string line;		//lines will go here
+	datafile.open("perceptron.txt");
+	if (!datafile.is_open()){
+		cout<<"Couldn't open perceptron.txt"<<endl;
+		return;
+	}
+	/*
+	getline(datafile,line); // first line is outputweights
+	stringstream ssin(line);
+	for (int i = 0; i < neuron->size+1; ++i)
+	{
+		string temp;
+	 	ssin >> temp;
+	 	neuron -> outputweight[i] = (float)(temp);
+	} 
+
+	getline(datafile,line); // second  line is hiddenweights
+	ssin= new stringstream(line);
+	for (int i = 0; i < neuron->size; ++i)
+	{
+		for (int j = 0; j < neuron->size+1; ++j)
+		{
+	 	ssin >> neuron -> hiddenweight[i][j];
+	 	}
+	} 
+	datafile.close();
+	*/
 
 }
 
