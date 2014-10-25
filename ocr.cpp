@@ -127,7 +127,7 @@ void train(){
 	{
 		outdatafile << neuron->outputweight[i] << " " ;
 	}
-	// outdatafile << endl << "~~~~~~~~~~~~~~~" << endl;
+	outdatafile << endl; //<< "~~~~~~~~~~~~~~~" << endl;
 	
 	for (int i = 0; i < neuron->size; ++i)
 	{
@@ -136,7 +136,6 @@ void train(){
 			outdatafile << neuron->hiddenweight[i][j] << " " ;
 		}
 	}
-
 	
 	outdatafile.close();
 	cout << "Wrote sample to perceptron.txt" << endl;
@@ -144,8 +143,9 @@ void train(){
 
 //called on "ocr test", after the user draws and double-clicks the mouse
 void test(){
-
 //TODO: MAKE SOME NEURAL NETS, READ THE WEIGHTS FROM A FILE perceptron.txt, USE THE NEURAL NETS TO IDENTIFY THE LETTER
+
+
 }
 
 //read the contents of the grid and save them to the end of ocrdata.txt
