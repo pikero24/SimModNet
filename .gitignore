@@ -29,6 +29,7 @@ bld/
 [Oo]bj/
 Debug/
 MakeFile
+Makefile
 *.qrc
 *_i.c
 *_p.c
