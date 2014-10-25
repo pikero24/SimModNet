@@ -102,14 +102,14 @@ void train(){
 			if(sample_output[i] == 'A')
 			{
 				correct = neuron->train(sample_input[i],1);
-				cout << sample_output[i] << correct << endl;
+				//cout << sample_output[i] << correct << endl;
 				if (!correct)
 						break;
 			}
 			else
 			{
 				correct = neuron->train(sample_input[i],0);
-				cout << sample_output[i] << correct << endl;
+				//cout << sample_output[i] << correct << endl;
 				if (!correct)
 						break;
 			}
@@ -118,7 +118,7 @@ void train(){
 
 	for (int i = 0; i < linecount; ++i)
 	{
-		cout << "Prediction for " << sample_output[i] << "is " <<neuron->getPrediction(sample_input[i]) << endl;
+		cout << "Prediction for " << sample_output[i] << " is " << neuron->getPrediction(sample_input[i]) << endl;
 	}
 }
 

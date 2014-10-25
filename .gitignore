@@ -30,6 +30,8 @@ bld/
 Debug/
 MakeFile
 Makefile
+moc_ocr.cpp
+
 *.qrc
 *_i.c
 *_p.c
