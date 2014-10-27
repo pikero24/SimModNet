@@ -188,7 +188,7 @@ void test(){
 	 	neuron -> outputweight[i] = n;
 	 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
 	} 
-	cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
+	// cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
 	getline(datafile,line); // second  line is hiddenweights
 	istringstream iss2(line);
 	for (int i = 0; i < neuron->size; ++i)
@@ -203,6 +203,7 @@ void test(){
 	} 
 	datafile.close();
 	
+	cout<< "PREDICTION OF H " << neuron->getPrediction(getSquares()) <<endl;
 	
 }
 
