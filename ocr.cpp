@@ -177,7 +177,7 @@ void test(){
 			iss >> n;
 			cout << "ISS: " << n << endl;
 	 		neuron -> hiddenweight[i][j] = n;
-	 		cout << "HW:  " << neuron -> outputweight[i] << endl;
+	 		cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
 	 	}
 	} 
 	datafile.close();
