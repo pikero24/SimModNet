@@ -94,28 +94,48 @@ void train(){
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
 
 	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
-	bool correct = false;
 
-	while(!correct)
+	bool isCorrect=false;
+	while (!isCorrect)//trains for one letter
 	{
-		for (int i = 0; i < linecount; ++i)
+		isCorrect = true;//assume it's true
+		for (int i = 0; i < linecount; i++)//go through each line
 		{
-			if(sample_output[i] == 'H')
+			if (sample_output[i] == 'H')//if this line has the letter want 
 			{
-				correct = neuron->train(sample_input[i],1);
-				//cout << sample_output[i] << correct << endl;
-				if (!correct)
-						break;
+				if (!neuron->train(sample_input[i], 1))//if we get a false, restart
+					isCorrect = false;
 			}
 			else
 			{
-				correct = neuron->train(sample_input[i],0);
-				//cout << sample_output[i] << correct << endl;
-				if (!correct)
-						break;
+				if (!neuron->train(sample_input[i], 0))
+					isCorrect = false;
 			}
 		}
 	}
+
+	// bool correct = false;
+
+	// while(!correct)
+	// {
+	// 	for (int i = 0; i < linecount; ++i)
+	// 	{
+	// 		if(sample_output[i] == 'H')
+	// 		{
+	// 			correct = neuron->train(sample_input[i],1);
+	// 			//cout << sample_output[i] << correct << endl;
+	// 			if (!correct)
+	// 					break;
+	// 		}
+	// 		else
+	// 		{
+	// 			correct = neuron->train(sample_input[i],0);
+	// 			//cout << sample_output[i] << correct << endl;
+	// 			if (!correct)
+	// 					break;
+	// 		}
+	// 	}
+	// }
 
 	for (int i = 0; i < linecount; ++i)
 	{
