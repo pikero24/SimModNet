@@ -164,9 +164,9 @@ void test(){
 	for (int i = 0; i < neuron->size+1; ++i)
 	{
 		iss >> n;
-		cout << "ISS: " << n << endl;
+		// cout << "ISS: " << n << endl;
 	 	neuron -> outputweight[i] = n;
-	 	cout << "OW:  " << neuron -> outputweight[i] << endl;
+	 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
 	} 
 	cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
 	getline(datafile,line); // second  line is hiddenweights
@@ -176,9 +176,9 @@ void test(){
 		for (int j = 0; j < neuron->size+1; ++j)
 		{
 			iss2 >> n;
-			cout << "ISS: " << n << endl;
+			// cout << "ISS: " << n << endl;
 	 		neuron -> hiddenweight[i][j] = n;
-	 		cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
+	 		// cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
 	 	}
 	} 
 	datafile.close();
