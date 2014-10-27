@@ -1,6 +1,6 @@
 /*A character recognizer that uses neural nets
 
-TODO: JC T... and Alma Sanchez, 10/2014
+TODO: JC T and Alma Sanchez, 10/2014
 assignment and helper code by Michael Black, 10/2014
 TODO:  
 	YOUR CODE WILL GO IN FUNCTIONS test() AND train()
@@ -24,7 +24,7 @@ ocr test
 //graphics defs here
 #include "ocr.h"
 //neural network is defined here.  assumes neural.cpp is in the same directory too.
-#include "neural.h"
+#include "neural.h"	
 
 using namespace std;
 int* getSquares();
@@ -100,7 +100,7 @@ void train(){
 	{
 		for (int i = 0; i < linecount; ++i)
 		{
-			if(sample_output[i] == 'S')
+			if(sample_output[i] == 'H')
 			{
 				correct = neuron->train(sample_input[i],1);
 				//cout << sample_output[i] << correct << endl;
@@ -156,28 +156,33 @@ void test(){
 		cout<<"Couldn't open perceptron.txt"<<endl;
 		return;
 	}
-	/*
-	getline(datafile,line); // first line is outputweights
-	stringstream ssin(line);
+	
+	getline(datafile,line); // first line is 
+	istringstream iss(line);
+	float n;
+
 	for (int i = 0; i < neuron->size+1; ++i)
 	{
-		string temp;
-	 	ssin >> temp;
-	 	neuron -> outputweight[i] = (float)(temp);
+		iss >> n;
+		// cout << "ISS: " << n << endl;
+	 	neuron -> outputweight[i] = n;
+	 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
 	} 
-
+	
 	getline(datafile,line); // second  line is hiddenweights
-	ssin= new stringstream(line);
 	for (int i = 0; i < neuron->size; ++i)
 	{
 		for (int j = 0; j < neuron->size+1; ++j)
 		{
-	 	ssin >> neuron -> hiddenweight[i][j];
+			iss >> n;
+			cout << "ISS: " << n << endl;
+	 		neuron -> hiddenweight[i][j] = n;
+	 		cout << "HW:  " << neuron -> outputweight[i] << endl;
 	 	}
 	} 
 	datafile.close();
-	*/
-
+	
+	
 }
 
 //read the contents of the grid and save them to the end of ocrdata.txt
