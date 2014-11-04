@@ -175,52 +175,101 @@ void train(){
 		outdatafile << endl;
 	}
 
-	
-
 	outdatafile.close();
 	cout << "Wrote sample to perceptron.txt" << endl;
+
+	ofstream outputletters;
+	outputletters.open("perceptronletters.txt",ios::out);
+	for (int i = 0; i < facecount; i++)
+	{
+		outputletters << faces[i] << endl;
+	}
+	cout << "Wrote faceletters to perceptronletters.txt" << endl;
+	outputletters.close();
 }
 
 //called on "ocr test", after the user draws and double-clicks the mouse
 void test(){
 	//TODO: MAKE SOME NEURAL NETS, READ THE WEIGHTS FROM A FILE perceptron.txt, USE THE NEURAL NETS TO IDENTIFY THE LETTER
-	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 
 	ifstream datafile;	//file object
 	string line;		//lines will go here
+	int neuroncount=0;	//keep track of how many samples are in the file
+	//go through the file and just count the number of neurons
 	datafile.open("perceptron.txt");
 	if (!datafile.is_open()){
 		cout<<"Couldn't open perceptron.txt"<<endl;
 		return;
 	}
-	
-	getline(datafile,line); // first line is 
-	istringstream iss(line);
-	float n;
-
-	for (int i = 0; i < neuron->size+1; ++i)
-	{
-		iss >> n;
-		// cout << "ISS: " << n << endl;
-	 	neuron -> outputweight[i] = n;
-	 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
-	} 
-	// cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
-	getline(datafile,line); // second  line is hiddenweights
-	istringstream iss2(line);
-	for (int i = 0; i < neuron->size; ++i)
-	{
-		for (int j = 0; j < neuron->size+1; ++j)
-		{
-			iss2 >> n;
-			// cout << "ISS: " << n << endl;
-	 		neuron -> hiddenweight[i][j] = n;
-	 		// cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
-	 	}
-	} 
+	while(getline(datafile,line)){
+		neuroncount++;
+	}
 	datafile.close();
+	neuroncount=-1; // to account for the extra line at the end
+	neuroncount = neuroncount/2;
+
+	Perceptron* neurons[neuroncount];
+	datafile.open("perceptron.txt");
+	for (int k = 0; k < neuroncount; k++)
+	{
+		/* code */
+		neurons[k] = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
+
+		getline(datafile,line); // first line is 
+		istringstream iss(line);
+		float n;
+
+		for (int i = 0; i < neurons[k]->size+1; i++)
+		{
+			iss >> n;
+			// cout << "ISS: " << n << endl;
+		 	neurons[k] -> outputweight[i] = n;
+		 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
+		} 
+		// cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
+		getline(datafile,line); // second  line is hiddenweights
+		istringstream iss2(line);
+		for (int i = 0; i < neurons[k]->size; i++)
+		{
+			for (int j = 0; j < neurons[k]->size+1; j++)
+			{
+				iss2 >> n;
+				// cout << "ISS: " << n << endl;
+		 		neurons[k] -> hiddenweight[i][j] = n;
+		 		// cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
+		 	}
+		} 
+
+	}
+	datafile.close();
+
+	ifstream letterfile;
+	char faces[25];
+	int facecount=0;
+	letterfile.open("perceptronletters.txt");
+	while(getline(letterfile,line)){
+		faces[facecount]=line[0];
+		facecount++;
+	}
+
+	for (int i = 0; i < facecount; ++i)
+	{
+		cout << "FACES" << i << " " <<  faces[i]  <<endl;
+	}
 	
-	cout<< "PREDICTION OF H " << neuron->getPrediction(getSquares()) <<endl;
+	int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
+	squares = getSquares();
+
+	cout<< "HI" <<endl;
+	cout<< "PREDICTION OF "<< faces[0] <<" is" << neurons[0]-> getPrediction(squares) <<endl;
+
+	for (int i = 0; i < facecount; i++)
+	{
+		// cout<< "PREDICTION OF "<<faces[i] <<" is" << neurons[i]->getPrediction(getSquares()) <<endl;
+	 	// cout<< "PREDICTION OF "<<faces[i] <<" is" << neurons[i]->getPrediction(squares) <<endl;
+	}
+
+	
 	
 }
 
