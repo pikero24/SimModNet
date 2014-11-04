@@ -62,10 +62,31 @@ void train(){
 		return;
 	}
 
+	char faces[25];
+	int facecount = 0;
+
 	int linecount=0;	//keep track of how many samples are in the file
 	//go through the file and just count the number of samples
 	while(getline(datafile,line)){
 		linecount++;
+
+		bool addtofaces=true;
+		for (int i=0; i< facecount; i++){	
+			//loop through faces, if line[0] is already in it, don't add
+			if (line[0] == faces[i])
+				addtofaces = false;
+		}
+		if (addtofaces){
+			faces[facecount]=line[0];
+			facecount++;
+		}
+	}
+
+
+	for (int i = 0; i < facecount; i++)
+	{
+		/* code */
+		cout << "FACES" << i << " " << faces[i]<< endl;
 	}
 
 	//close the file.  we'll reopen it in a moment.
@@ -93,73 +114,69 @@ void train(){
 
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
 
-	Perceptron* neuron = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
-
-	bool isCorrect=false;
-	while (!isCorrect)//trains for one letter
+	Perceptron* neurons[facecount];
+	for(int i=0; i<facecount; i++){
+		neurons[i] = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
+	}
+	for (int f=0; f<facecount; f++)
 	{
-		isCorrect = true;//assume it's true
-		for (int i = 0; i < linecount; i++)//go through each line
+		bool isCorrect=false;
+		while (!isCorrect)//trains for one letter
 		{
-			if (sample_output[i] == 'H')//if this line has the letter want 
+			isCorrect = true;//assume it's true
+			for (int i = 0; i < linecount; i++)//go through each line
 			{
-				if (!neuron->train(sample_input[i], 1))//if we get a false, restart
-					isCorrect = false;
-			}
-			else
-			{
-				if (!neuron->train(sample_input[i], 0))
-					isCorrect = false;
+				if (sample_output[i] == faces[f])//if this line has the letter want 
+				{
+					// cout<<"HELLO"<<endl;
+					if (!neurons[f]->train(sample_input[i], 1))//if we get a false, restart
+						isCorrect = false;
+				}
+				else
+				{
+					if (!neurons[f]->train(sample_input[i], 0))
+						isCorrect = false;
+				}
 			}
 		}
 	}
 
-	// bool correct = false;
-
-	// while(!correct)
-	// {
-	// 	for (int i = 0; i < linecount; ++i)
-	// 	{
-	// 		if(sample_output[i] == 'H')
-	// 		{
-	// 			correct = neuron->train(sample_input[i],1);
-	// 			//cout << sample_output[i] << correct << endl;
-	// 			if (!correct)
-	// 					break;
-	// 		}
-	// 		else
-	// 		{
-	// 			correct = neuron->train(sample_input[i],0);
-	// 			//cout << sample_output[i] << correct << endl;
-	// 			if (!correct)
-	// 					break;
-	// 		}
-	// 	}
-	// }
-
-	for (int i = 0; i < linecount; ++i)
+	for (int j = 0; j < facecount; j++)
 	{
-		cout << "Prediction for " << sample_output[i] << " is " << neuron->getPrediction(sample_input[i]) << endl;
+		cout<<endl;
+		for (int i = 0; i < linecount; i++)
+		{
+			cout << "Neuron "<< faces[j] << "'s' ";
+			cout << "Prediction for " << sample_output[i] << " is " << neurons[j]->getPrediction(sample_input[i]) << endl;
+		}
 	}
+	
 
 	ofstream outdatafile;
-	outdatafile.open("perceptron.txt",ios::out|ios::app);
-	for (int i = 0; i < neuron->size+1; ++i)
+	outdatafile.open("perceptron.txt",ios::out); //ios::out | ios::app
+	for (int g = 0; g < facecount; g++)
 	{
-		//line 1 of output file is the output weights
-		outdatafile << neuron->outputweight[i] << " " ;
-	}
-	outdatafile << endl; //<< "~~~~~~~~~~~~~~~" << endl;
-	
-	for (int i = 0; i < neuron->size; ++i)
-	{
-		for (int j = 0; j < neuron->size+1; ++j)
+		/* code */
+		for (int i = 0; i < neurons[g]->size+1; ++i)
 		{
-			//line 2 of output file is hidden weights
-			outdatafile << neuron->hiddenweight[i][j] << " " ;
+			//line 1 of output file is the output weights
+			outdatafile << neurons[g]->outputweight[i] << " " ;
 		}
+		outdatafile << endl; //<< "~~~~~~~~~~~~~~~" << endl;
+
+		for (int i = 0; i < neurons[g]->size; ++i)
+		{
+			for (int j = 0; j < neurons[g]->size+1; ++j)
+			{
+				//line 2 of output file is hidden weights
+				outdatafile << neurons[g]->hiddenweight[i][j] << " " ;
+			}
+		}
+		outdatafile << endl;
 	}
+
 	
+
 	outdatafile.close();
 	cout << "Wrote sample to perceptron.txt" << endl;
 }
