@@ -62,6 +62,7 @@ void train(){
 		return;
 	}
 
+	//array of unique characters/faces
 	char faces[25];
 	int facecount = 0;
 
@@ -70,6 +71,7 @@ void train(){
 	while(getline(datafile,line)){
 		linecount++;
 
+		//populate faces with unique characters/faces
 		bool addtofaces=true;
 		for (int i=0; i< facecount; i++){	
 			//loop through faces, if line[0] is already in it, don't add
@@ -85,11 +87,9 @@ void train(){
 
 	for (int i = 0; i < facecount; i++)
 	{
-		/* code */
 		cout << "FACES" << i << " " << faces[i]<< endl;
 	}
 
-	//close the file.  we'll reopen it in a moment.
 	datafile.close();
 
 	//make an array to hold the samples
@@ -115,11 +115,13 @@ void train(){
 //TODO: MAKE SOME NEURAL NETS AND TRAIN THEM HERE, THEN SAVE THE WEIGHTS TO perceptron.txt
 
 	Perceptron* neurons[facecount];
+	//create array of perceptrons
 	for(int i=0; i<facecount; i++){
 		neurons[i] = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 	}
+
 	for (int f=0; f<facecount; f++)
-	{
+	{	//Do the training
 		bool isCorrect=false;
 		while (!isCorrect)//trains for one letter
 		{
@@ -142,7 +144,7 @@ void train(){
 	}
 
 	for (int j = 0; j < facecount; j++)
-	{
+	{	//display the training
 		cout<<endl;
 		for (int i = 0; i < linecount; i++)
 		{
@@ -155,14 +157,14 @@ void train(){
 	ofstream outdatafile;
 	outdatafile.open("perceptron.txt",ios::out); //ios::out | ios::app
 	for (int g = 0; g < facecount; g++)
-	{
-		/* code */
+	{	//store output weights and hidden weights into a text file
+
 		for (int i = 0; i < neurons[g]->size+1; ++i)
 		{
 			//line 1 of output file is the output weights
 			outdatafile << neurons[g]->outputweight[i] << " " ;
 		}
-		outdatafile << endl; //<< "~~~~~~~~~~~~~~~" << endl;
+		outdatafile << endl; 
 
 		for (int i = 0; i < neurons[g]->size; ++i)
 		{
@@ -181,7 +183,8 @@ void train(){
 	ofstream outputletters;
 	outputletters.open("perceptronletters.txt",ios::out);
 	for (int i = 0; i < facecount; i++)
-	{
+	{	// store faces/unique characters array in another text file for use in test.
+
 		outputletters << faces[i] << endl;
 	}
 	cout << "Wrote faceletters to perceptronletters.txt" << endl;
@@ -195,39 +198,35 @@ void test(){
 	ifstream datafile;	//file object
 	string line;		//lines will go here
 	int neuroncount=0;	//keep track of how many samples are in the file
-	//go through the file and just count the number of neurons
 	datafile.open("perceptron.txt");
 	if (!datafile.is_open()){
 		cout<<"Couldn't open perceptron.txt"<<endl;
 		return;
 	}
 	while(getline(datafile,line)){
+		//go through the file and just count the number of lines
 		neuroncount++;
 	}
 	datafile.close();
-	neuroncount-=1; // to account for the extra line at the end
+	//one line for output, one light for hidden, 2 lines for each perceptron
 	neuroncount = neuroncount/2;
-
 
 	Perceptron* neurons[neuroncount];
 	datafile.open("perceptron.txt");
 	for (int k = 0; k < neuroncount; k++)
-	{
-		/* code */
+	{	// create a neuron and populate it with the required two lines from the file
+
 		neurons[k] = new Perceptron(GRIDWIDTH*GRIDHEIGHT);
 
-		getline(datafile,line); // first line is 
+		getline(datafile,line); // first line is output weights
 		istringstream iss(line);
 		float n;
-
 		for (int i = 0; i < neurons[k]->size+1; i++)
 		{
 			iss >> n;
-			// cout << "ISS: " << n << endl;
 		 	neurons[k] -> outputweight[i] = n;
-		 	// cout << "OW:  " << neuron -> outputweight[i] << endl;
 		} 
-		// cout<< endl << "~~~~~~~~~~~~~~~~~~~~~~" << endl << endl;
+
 		getline(datafile,line); // second  line is hiddenweights
 		istringstream iss2(line);
 		for (int i = 0; i < neurons[k]->size; i++)
@@ -235,15 +234,13 @@ void test(){
 			for (int j = 0; j < neurons[k]->size+1; j++)
 			{
 				iss2 >> n;
-				// cout << "ISS: " << n << endl;
 		 		neurons[k] -> hiddenweight[i][j] = n;
-		 		// cout << "HW:  " << neuron -> hiddenweight[i][j] << endl;
 		 	}
 		} 
-
 	}
 	datafile.close();
 
+	//Need face data to be able to define different perceptrons.
 	ifstream letterfile;
 	char faces[25];
 	int facecount=0;
@@ -252,22 +249,18 @@ void test(){
 		faces[facecount]=line[0];
 		facecount++;
 	}
-
 	for (int i = 0; i < facecount; i++)
 	{
 		cout << "FACES" << i << " " <<  faces[i]  <<endl;
 	}
 	
-	// int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
-	// squares = getSquares();
-
-	cout<< "HI" <<endl;
-	cout<< "PREDICTION OF "<< faces[0] <<" is" << neurons[0]->getPrediction(getSquares()) <<endl;
+	//store getSquares for multiple use
+	int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
+	squares = getSquares();
 
 	for (int i = 0; i < facecount; i++)
-	{
-		// cout<< "PREDICTION OF "<<faces[i] <<" is" << neurons[i]->getPrediction(getSquares()) <<endl;
-	 	// cout<< "PREDICTION OF "<<faces[i] <<" is" << neurons[i]->getPrediction(squares) <<endl;
+	{	//return prediction
+	 	cout<< "PREDICTION OF "<< i << faces[i] <<" is " << neurons[i]->getPrediction(squares) <<endl;
 	}
 
 	
