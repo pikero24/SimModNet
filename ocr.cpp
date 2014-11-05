@@ -205,8 +205,9 @@ void test(){
 		neuroncount++;
 	}
 	datafile.close();
-	neuroncount=-1; // to account for the extra line at the end
+	neuroncount-=1; // to account for the extra line at the end
 	neuroncount = neuroncount/2;
+
 
 	Perceptron* neurons[neuroncount];
 	datafile.open("perceptron.txt");
@@ -252,16 +253,16 @@ void test(){
 		facecount++;
 	}
 
-	for (int i = 0; i < facecount; ++i)
+	for (int i = 0; i < facecount; i++)
 	{
 		cout << "FACES" << i << " " <<  faces[i]  <<endl;
 	}
 	
-	int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
-	squares = getSquares();
+	// int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
+	// squares = getSquares();
 
 	cout<< "HI" <<endl;
-	cout<< "PREDICTION OF "<< faces[0] <<" is" << neurons[0]-> getPrediction(squares) <<endl;
+	cout<< "PREDICTION OF "<< faces[0] <<" is" << neurons[0]->getPrediction(getSquares()) <<endl;
 
 	for (int i = 0; i < facecount; i++)
 	{
