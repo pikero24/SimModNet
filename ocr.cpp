@@ -260,7 +260,7 @@ void test(){
 
 	for (int i = 0; i < facecount; i++)
 	{	//return prediction
-	 	cout<< "PREDICTION OF "<< i << faces[i] <<" is " << neurons[i]->getPrediction(squares) <<endl;
+	 	cout<< "PREDICTION OF "<< i << faces[i] <<" is " << neurons[i]->getRawPrediction(squares) <<endl;
 	}
 
 	
