@@ -1,5 +1,4 @@
 /*A character recognizer that uses neural nets
-
 TODO: JC T and Alma Sanchez, 10/2014
 assignment and helper code by Michael Black, 10/2014
 TODO:  
@@ -251,21 +250,30 @@ void test(){
 	}
 	for (int i = 0; i < facecount; i++)
 	{
-		cout << "FACES" << i << " " <<  faces[i]  <<endl;
+		cout << "FACE " << i << " " <<  faces[i]  <<endl;
 	}
 	
 	//store getSquares for multiple use
 	int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
 	squares = getSquares();
 
-	for (int i = 0; i < facecount; i++)
-	{	//return prediction
-	 	cout<< "PREDICTION OF "<< i << faces[i] <<" is " << neurons[i]->getRawPrediction(squares) <<endl;
+
+	float* rawPredictions = new float[10];
+	float guess = 0.0;
+	int faceGuess = 0;
+	for (int r = 0; r < facecount; r++){
+		rawPredictions[r] = neurons[r]->getRawPrediction(squares);
+		//cout<< "PREDICTION OF "<< r << faces[r] <<" is " << rawPredictions[r] <<endl;
+		if(rawPredictions[r]>guess){
+			guess = rawPredictions[r];
+			faceGuess = r;
+			//cout << "max r? "<< r << guess << endl;
+		}
+	}
+//Make the right guess, chose max out of numbers being printed	
+	cout<< "Is it " << faces[faceGuess] << "?" << endl;
 	}
 
-	
-	
-}
 
 //read the contents of the grid and save them to the end of ocrdata.txt
 void saveSample(){
