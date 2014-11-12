@@ -43,6 +43,13 @@ Square* square[GRIDWIDTH][GRIDHEIGHT];
 QGraphicsScene* thescene;
 OCRView* view;
 
+//A = angry >=|
+//H = Happy =)
+//F = winky face ;)
+//S = sad face
+//W = weird face 0_o
+
+
 //keep track of the command line input
 //operation is "sample" "train" or "test"
 //symbol is the letter entered when the operation is "sample"
@@ -82,12 +89,10 @@ void train(){
 			facecount++;
 		}
 	}
-
-
-	for (int i = 0; i < facecount; i++)
+	/*for (int i = 0; i < facecount; i++)
 	{
-		cout << "FACES" << i << " " << faces[i]<< endl;
-	}
+		cout << "FACES " << i << " " << faces[i]<< endl;
+	}*/
 
 	datafile.close();
 
@@ -248,10 +253,9 @@ void test(){
 		faces[facecount]=line[0];
 		facecount++;
 	}
-	for (int i = 0; i < facecount; i++)
-	{
+	/*for (int i = 0; i < facecount; i++){
 		cout << "FACE " << i << " " <<  faces[i]  <<endl;
-	}
+	}*/
 	
 	//store getSquares for multiple use
 	int* squares = new int[GRIDWIDTH*GRIDHEIGHT];
@@ -267,12 +271,11 @@ void test(){
 		if(rawPredictions[r]>guess){
 			guess = rawPredictions[r];
 			faceGuess = r;
-			//cout << "max r? "<< r << guess << endl;
 		}
 	}
-//Make the right guess, chose max out of numbers being printed	
+	//Make the right guess, chose max out of numbers being printed	
 	cout<< "Is it " << faces[faceGuess] << "?" << endl;
-	}
+}
 
 
 //read the contents of the grid and save them to the end of ocrdata.txt
