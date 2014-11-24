@@ -12,7 +12,12 @@ ocr train
 ocr test
 	pops up a window, user draws a letter and doubleclicks, the program tries to guess which letter was drawn
 */
-
+// trained in this order
+//A = angry >=| mouth 2nd row from the bottom
+//H = Happy =) one column in from both sides
+//S = sad face =( 3 squares in from left and right
+//W = weird face 0_o mouth is the 5th row from the bottom
+//E = extremely happy face =D 2nd and 3rd rows from left and right, mouth starts 4 rows under the eyes
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -42,12 +47,6 @@ Square* square[GRIDWIDTH][GRIDHEIGHT];
 //the window background
 QGraphicsScene* thescene;
 OCRView* view;
-
-//A = angry >=|
-//H = Happy =)
-//F = winky face ;)
-//S = sad face
-//W = weird face 0_o
 
 
 //keep track of the command line input
